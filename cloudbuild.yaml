@@ -1,12 +1,12 @@
 steps:
-- name: 'gcr.io/cloud-builders/git'
-  args: ['clone', 'https://github.com/begh-azka/terraform-gcp.git', '.']
-  
 - name: 'gcr.io/cloud-builders/gsutil'
   entrypoint: 'bash'
   args:
       - '-c'
       - 'rm -rf ./*'
+      
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'https://github.com/begh-azka/terraform-gcp.git', '.']
       
 - name: 'gcr.io/cloud-builders/terraform'
   args: ['init']
