@@ -3,10 +3,12 @@ variable "project" {
   default = "terraform-pro"
 }
 
+/*
 variable "credentials_file" {
   type    = string
   default = "./terraform-proj-service-account.json"
 }
+*/
 
 variable "region" {
   type    = string
