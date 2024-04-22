@@ -1,14 +1,14 @@
 steps: 
 # Step 1: Initialize Terraform    
 - name: 'hashicorp/terraform'
-  entrypoint: 'bash'
+  entrypoint: 'sh'
   args:
       - '-c'
       - |
         terraform init
 # Step 2: Terraform Plan
 - name: 'hashicorp/terraform'
-  entrypoint: 'bash'
+  entrypoint: 'sh'
   args:
       - '-c'
       - |
@@ -17,7 +17,7 @@ steps:
 # Step 3:  Approval Step
      
 - name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
+  entrypoint: 'sh'
   args:
       - '-c'
       - |
