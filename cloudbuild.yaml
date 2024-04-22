@@ -24,4 +24,4 @@ steps:
           exit 1
         fi
   
-logsBucket: 'gs://logs-cb-cloudbuild'
+#logsBucket: 'gs://logs-cb-cloudbuild'
