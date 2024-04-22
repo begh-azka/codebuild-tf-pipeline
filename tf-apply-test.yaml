@@ -1,5 +1,15 @@
 # Step 1: Approval Step
 steps:
+- id: 'branch name'
+  name: gcr.io/cloud-builders/git
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      echo "***********************"
+      git branch --show-current
+      echo 
+      
 - name: 'hashicorp/terraform'
   entrypoint: 'sh'
   args:
@@ -8,14 +18,7 @@ steps:
         echo "Review Terraform Plan:"
         terraform show tfplan
         echo "Please review the plan. If it looks good, approve the build. If not, cancel it."
-        if [ -d "env/$BRANCH_NAME/" ]; then
-        cd env/$BRANCH_NAME      
         terraform apply -auto-approve
-        else
-        echo "***************************** SKIPPING APPLYING *******************************"
-        echo "Branch '$BRANCH_NAME' does not represent an official environment."
-        echo "*******************************************************************************"
-      fi
 
 logsBucket: 'gs://logs-cb-cloudbuild'
 options:
