@@ -5,6 +5,7 @@ steps:
   args:
   - '-c'
   - |
+      git branch --show-current
       branch=$(basename "$_REF")
       git checkout ${branch}
       echo "***********************"
