@@ -1,12 +1,13 @@
 steps: 
+- name: 'gcr.io/cloud-builders/git'
+  args: ['checkout', 'dev']
+  
 - id: 'branch name'
   name: gcr.io/cloud-builders/git
   entrypoint: 'sh'
   args:
   - '-c'
   - |
-      git branch --show-current
-      git checkout dev
       echo "***********************"
       git branch --show-current
       echo 
