@@ -7,9 +7,6 @@ steps:
 
   - name: 'gcr.io/cloud-builders/terraform'
     args: ['plan', '-out=tfplan']
-    logsBucket: 'gs://logs-cb-cloudbuild'
-    options:
-     logging: GCS_ONLY
      
   - name: 'gcr.io/cloud-builders/terraform'
     entrypoint: 'bash'
@@ -26,5 +23,8 @@ steps:
           echo "Approval Denied! Build canceled. Exiting."
           exit 1
         fi
-
+        
+  logsBucket: 'gs://logs-cb-cloudbuild'
+  options:
+    logging: GCS_ONLY
 
