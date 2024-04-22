@@ -24,6 +24,5 @@ steps:
           exit 1
         fi
 options:
-  logging: {    
+  logging:   
     logBucket: 'gs://logs-cb-cloudbuild'  
-  }
