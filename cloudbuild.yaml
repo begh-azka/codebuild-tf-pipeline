@@ -1,4 +1,16 @@
 steps: 
+- id: 'branch name'
+  name: gcr.io/cloud-builders/git
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      branch=$(basename "$_REF")
+      git checkout ${branch}
+      echo "***********************"
+      git branch --show-current
+      echo 
+      
 # Step 1: Initialize Terraform    
 - name: 'hashicorp/terraform'
   entrypoint: 'sh'
@@ -15,7 +27,7 @@ steps:
         terraform plan -out=tfplan
 
 # Step 3:  Approval Step
-     
+/*     
 - name: 'hashicorp/terraform'
   entrypoint: 'sh'
   args:
@@ -31,7 +43,7 @@ steps:
           echo "Approval Denied! Build canceled. Exiting."
           exit 1
         fi
-        
+*/        
 logsBucket: 'gs://logs-cb-cloudbuild'
 options:
     logging: GCS_ONLY
