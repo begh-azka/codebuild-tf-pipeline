@@ -16,7 +16,6 @@ steps:
         echo "Review Terraform Plan:"
         terraform show tfplan
         echo "Please review the plan. If it looks good, approve the build. If not, cancel it."
-        export TF_IN_AUTOMATION=true  # Set TF_IN_AUTOMATION to prevent Terraform from prompting for input
         read -p "Do you approve these changes? (y/n)" approval
         if [ "$approval" == "y" ]; then
           terraform apply -auto-approve tfplan
