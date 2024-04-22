@@ -1,0 +1,37 @@
+steps: 
+# Step 1: Initialize Terraform    
+- name: 'hashicorp/terraform'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - |
+        terraform init
+# Step 2: Terraform Plan
+- name: 'hashicorp/terraform'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - |
+        terraform plan -out=tfplan
+
+# Step 3:  Approval Step
+     
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+      - '-c'
+      - |
+        echo "Review Terraform Plan:"
+        terraform show tfplan
+        echo "Please review the plan. If it looks good, approve the build. If not, cancel it."
+        read -p "Do you approve these changes? (y/n)" approval
+        if [ "$approval" == "y" ]; then
+          terraform apply -auto-approve tfplan
+        else
+          echo "Approval Denied! Build canceled. Exiting."
+          exit 1
+        fi
+        
+logsBucket: 'gs://logs-cb-cloudbuild'
+options:
+    logging: GCS_ONLY
