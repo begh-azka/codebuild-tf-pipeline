@@ -25,4 +25,4 @@ steps:
         fi
   
 options:
-  logging: 'gs://logs-cb-cloudbuild' 
+  logging: gs://logs-cb-cloudbuild
