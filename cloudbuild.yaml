@@ -1,0 +1,22 @@
+steps:
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://github.com/begh-azka/terraform-gcp.git', '.']
+  - name: 'gcr.io/cloud-builders/terraform'
+    args: ['init']
+  - name: 'gcr.io/cloud-builders/terraform'
+    args: ['plan', '-out=tfplan']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Review Terraform Plan:"
+        terraform show tfplan
+        echo "Please review the plan. If it looks good, approve the build. If not, cancel it."
+        read -p "Do you approve these changes? (y/n)" approval
+        if [ "$approval" == "y" ]; then
+          terraform apply -auto-approve tfplan
+        else
+          echo "Approval Denied! Build canceled. Exiting."
+          exit 1
+        fi
