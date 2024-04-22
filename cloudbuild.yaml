@@ -24,7 +24,5 @@ steps:
           exit 1
         fi
   
-#options:
-#  logging: gs://logs-cb-cloudbuild
 options:
-  logging: CLOUD_LOGGING_ONLY
+ logStreamingOption: STREAM_ON
