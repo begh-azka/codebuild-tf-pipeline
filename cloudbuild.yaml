@@ -6,8 +6,7 @@ steps:
   - '-c'
   - |
       git branch --show-current
-      branch=$(basename "$_REF")
-      git checkout ${branch}
+      git checkout dev
       echo "***********************"
       git branch --show-current
       echo 
@@ -18,6 +17,8 @@ steps:
   args:
       - '-c'
       - |
+        git branch --show-current
+        echo
         terraform init
 # Step 2: Terraform Plan
 - name: 'hashicorp/terraform'
@@ -25,8 +26,10 @@ steps:
   args:
       - '-c'
       - |
-        terraform plan -out=tfplan
-       
+        git branch --show-current
+        echo
+        terraform plan 
+        
 logsBucket: 'gs://logs-cb-cloudbuild'
 options:
     logging: GCS_ONLY
