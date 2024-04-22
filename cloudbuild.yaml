@@ -25,4 +25,5 @@ steps:
         fi
         
 options:
-  logsBucket: 'gs://logs-cb-cloudbuild'
+  build:
+    logsBucket: 'gs://logs-cb-cloudbuild'        
