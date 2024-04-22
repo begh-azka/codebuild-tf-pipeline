@@ -23,7 +23,6 @@ steps:
           echo "Approval Denied! Build canceled. Exiting."
           exit 1
         fi
-        
-options:
-  build:
-    logsBucket: 'gs://logs-cb-cloudbuild'        
+  logsBucket: 'gs://logs-cb-cloudbuild'
+  options:
+      logging: GCS_ONLY      
