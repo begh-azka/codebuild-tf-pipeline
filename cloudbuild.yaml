@@ -24,5 +24,4 @@ steps:
           exit 1
         fi
   
-options:
- logStreamingOption: STREAM_ON
+logsBucket: "gs://logs-cb-cloudbuild"
