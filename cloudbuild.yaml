@@ -1,16 +1,16 @@
 steps:
-  - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/begh-azka/terraform-gcp.git', '.']
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'https://github.com/begh-azka/terraform-gcp.git', '.']
 
-  - name: 'gcr.io/cloud-builders/terraform'
-    args: ['init']
+- name: 'gcr.io/cloud-builders/terraform'
+  args: ['init']
 
-  - name: 'gcr.io/cloud-builders/terraform'
-    args: ['plan', '-out=tfplan']
+- name: 'gcr.io/cloud-builders/terraform'
+  args: ['plan', '-out=tfplan']
      
-  - name: 'gcr.io/cloud-builders/terraform'
-    entrypoint: 'bash'
-    args:
+- name: 'gcr.io/cloud-builders/terraform'
+  entrypoint: 'bash'
+  args:
       - '-c'
       - |
         echo "Review Terraform Plan:"
@@ -24,7 +24,6 @@ steps:
           exit 1
         fi
 options:
-  logging: {  # Specify logging configuration
-    # cloudBuildServiceAccount: 'your-service-account@your-project.iam.gserviceaccount.com',  # Specify your service account
-    logBucket: 'gs://logs-cb-cloudbuild'  # Specify your logs bucket
+  logging: {    
+    logBucket: 'gs://logs-cb-cloudbuild'  
   }
