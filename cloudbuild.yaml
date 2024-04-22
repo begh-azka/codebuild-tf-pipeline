@@ -23,4 +23,8 @@ steps:
           echo "Approval Denied! Build canceled. Exiting."
           exit 1
         fi
-
+options:
+  logging: {  # Specify logging configuration
+    # cloudBuildServiceAccount: 'your-service-account@your-project.iam.gserviceaccount.com',  # Specify your service account
+    logBucket: 'gs://logs-cb-cloudbuild'  # Specify your logs bucket
+  }
