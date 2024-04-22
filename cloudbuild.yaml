@@ -6,7 +6,8 @@ steps:
   entrypoint: 'bash'
   args:
       - '-c'
-      - 'mv /workspace/temp/* . && rm -rf /workspace/temp'
+      - 'rm -rf ./*'
+      
 - name: 'gcr.io/cloud-builders/terraform'
   args: ['init']
 
