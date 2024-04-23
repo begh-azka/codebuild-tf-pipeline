@@ -1,6 +1,4 @@
-# Step 1: Approval Step
 steps:
-
 # Print the name of the git branch
 - id: 'Verify Git branch'
   name: alpine/git
@@ -37,8 +35,10 @@ steps:
   - |
       cd env/${BRANCH_NAME}/
       terraform plan
-
-- name: 'hashicorp/terraform'
+      
+# Apply the Changes
+- id: 'Terraform apply'
+  name: 'hashicorp/terraform'
   entrypoint: 'sh'
   args:
       - '-c'
