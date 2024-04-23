@@ -4,7 +4,7 @@ output "network" {
 }
 
 output "network_self_link" {
-  value = google_compute_network.main-vpc.id
+  value = google_compute_network.main-vpc.self_link
 }
 
 output "subnet-name1" {
