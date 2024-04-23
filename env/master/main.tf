@@ -16,7 +16,7 @@ provider "google-beta" {
 
 module "vm" {
   source               = "./modules/vm/"
-  vm1                  = "vm1"
+  vm1                  = "master-vm"
   machine_type1        = "n1-standard-1"
   vm_zone1             = "northamerica-northeast1-a"
   image1               = "ubuntu-os-cloud/ubuntu-2004-lts"
@@ -30,22 +30,24 @@ module "vm" {
 
   # --------------- LABELS ---------------
   project1   = "terraform-pro"
-  role1      = "vm1-test"
-  env1       = "test"
+  role1      = "vm1-master"
+  env1       = "master"
   owner1     = "devops"
   terraform1 = "yes"
-  name1      = "vm1"
+  name1      = "master-vm"
   schedule1  = "no"
 
 }
 
 module "vpc" {
   source = "./modules/vpc/"
-  # --------------- main-vpc ---------------
-  network_name1 = "hsia-prd-vpc"
+
+  # --------------- master-vpc ---------------
+  network_name1 = "master-vpc"
   region        = "northamerica-northeast1"
-  # --------------- main-vpc-subnet ---------------
-  subnet_name1    = "hsia-prd-public-subnet"
+
+  # --------------- master-vpc-subnet ---------------
+  subnet_name1    = "master-public-subnet"
   subnet_range1   = "10.163.136.0/27"
   private_access1 = "true"
 
