@@ -1,22 +1,54 @@
-# Step 1: Approval Step
 steps:
+
+# Print the name of the git branch
+- id: 'Verify Git branch'
+  name: alpine/git
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      echo "List all the files in the git directory to verify branch"
+      ls -l env/
+      echo "We are in Branch: $BRANCH_NAME"
+
+# Initilaize Terraform
+- id: 'Terraform init'
+  name: 'hashicorp/terraform:1.2.9'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      dir=$(ls env/) && echo $dir
+      if [ -d "env/${BRANCH_NAME}/" ]; then
+        cd env/${BRANCH_NAME}
+        terraform init
+      else
+       echo "The branch is ${BRANCH_NAME} but the folder inside is ${dir}. Exiting!"
+       exit 1
+      fi
+      
+# Generate a Plan 
+- id: 'Terraform plan'
+  name: 'hashicorp/terraform:1.2.9'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      cd env/${BRANCH_NAME}/
+      terraform plan
+
 - name: 'hashicorp/terraform'
   entrypoint: 'sh'
   args:
       - '-c'
       - |
-        echo "Review Terraform Plan:"
-        terraform show tfplan
-        echo "Please review the plan. If it looks good, approve the build. If not, cancel it."
-        if [ -d "env/$BRANCH_NAME/" ]; then
-        cd env/$BRANCH_NAME      
+        cd env/${BRANCH_NAME}/
         terraform apply -auto-approve
-        else
-        echo "***************************** SKIPPING APPLYING *******************************"
-        echo "Branch '$BRANCH_NAME' does not represent an official environment."
-        echo "*******************************************************************************"
-      fi
 
-logsBucket: 'gs://logs-cb-cloudbuild'
+# Store Logs in a Bucket     
+#logsBucket: 'gs://logs-cb-cloudbuild'
+#options:
+#    logging: GCS_ONLY
+
 options:
-    logging: GCS_ONLY
+  logging: CLOUD_LOGGING_ONLY
