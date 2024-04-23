@@ -1,3 +1,4 @@
+# Step 1: Approval Step
 steps:
 
 # Print the name of the git branch
@@ -36,6 +37,14 @@ steps:
   - |
       cd env/${BRANCH_NAME}/
       terraform plan
+
+- name: 'hashicorp/terraform'
+  entrypoint: 'sh'
+  args:
+      - '-c'
+      - |
+        cd env/${BRANCH_NAME}/
+        terraform apply -auto-approve
 
 # Store Logs in a Bucket     
 logsBucket: 'gs://logs-cb-cloudbuild'
