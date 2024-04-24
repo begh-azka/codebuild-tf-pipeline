@@ -4,7 +4,8 @@ resource "google_compute_instance" "vm1" {
   zone                      = var.vm_zone1
   can_ip_forward            = var.ip_forwarding1
   allow_stopping_for_update = true                     
-  deletion_protection       = var.deletion_protection1 
+  #deletion_protection       = var.deletion_protection1 
+  #depends_on                = [var.network1]
 
   shielded_instance_config {
 

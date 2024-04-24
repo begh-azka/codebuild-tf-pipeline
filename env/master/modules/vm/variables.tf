@@ -34,10 +34,10 @@ variable "ip_forwarding1" {
   description = "enter ip_forwarding"
 }
 
-variable "deletion_protection1" {
+/*variable "deletion_protection1" {
   type        = string
   description = "enter true or false"
-}
+}*/
 
 variable "image1" {
   type        = string

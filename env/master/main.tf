@@ -17,13 +17,13 @@ provider "google-beta" {
 module "vm" {
   source               = "./modules/vm/"
   vm1                  = "master-vm"
-  machine_type1        = "n1-standard-1"
+  machine_type1        = "e2-standard-2"
   vm_zone1             = "northamerica-northeast1-a"
   image1               = "ubuntu-os-cloud/ubuntu-2004-lts"
   size1                = "20"
   type1                = "pd-standard"
   ip_forwarding1       = "false"
-  deletion_protection1 = "true"
+  #deletion_protection1 = "false"
   tags1                = ["ssh", "openvpn"]
   network1             = module.vpc.network_self_link
   subnet-1-name        = module.vpc.subnet-name1
