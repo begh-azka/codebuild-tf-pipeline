@@ -48,7 +48,7 @@ module "vpc" {
 
   # --------------- master-vpc-subnet ---------------
   subnet_name1    = "master-public-subnet"
-  subnet_range1   = "10.163.136.0/27"
+  subnet_range1   = "10.0.1.0/27"
   private_access1 = "true"
 
 }
