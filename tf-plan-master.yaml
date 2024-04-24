@@ -23,7 +23,7 @@ steps:
   args:
   - '-c'
   - |
-    cd env/${BRANCH_NAME}
+    cd env/${BRANCH_NAME} && pwd
     terraform init
       
 # Generate a Plan 
@@ -33,8 +33,8 @@ steps:
   args:
   - '-c'
   - |
-    cd env/${BRANCH_NAME}/
-    terraform plan
+    cd env/${BRANCH_NAME}/ && pwd
+    terraform plan 
 
 # Store Logs in a Bucket     
 logsBucket: 'gs://logs-cb-cloudbuild'
