@@ -47,6 +47,6 @@ steps:
         terraform apply -auto-approve tfplan
 
 # Store Logs in a Bucket     
-logsBucket: 'gs://logs-cb-cloudbuild'
+logsBucket: 'gs://logs-cb-cloudbuild/master-logs-apply'
 options:
     logging: GCS_ONLY
