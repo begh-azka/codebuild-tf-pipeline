@@ -1,6 +1,6 @@
 variable "project" {
   type    = string
-  default = "terraform-pro"
+  default = "terraform-proj-421108"
 }
 
 /*
