@@ -8,7 +8,7 @@ steps:
   - '-c'
   - |
       echo "List all the files in the git directory to verify branch"
-      dir = $(ls env) && ls -l env/
+      dir=$(ls env) && echo $dir
       echo "We are in Branch: $BRANCH_NAME"
       if [ $dir == $BRANCH_NAME ]; then
         echo "Directory inside env is ${dir} and it matches ${BRANCH_NAME}"
@@ -16,7 +16,7 @@ steps:
         echo "Directory: ${dir} does not match git branch: ${BRANCH_NAME}. Exiting!"
         exit 1
       fi
-      
+
 # Initilaize Terraform
 - id: 'Terraform init'
   name: 'hashicorp/terraform:1.2.9'
