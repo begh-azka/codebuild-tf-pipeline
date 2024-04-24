@@ -46,9 +46,7 @@ steps:
         terraform apply -auto-approve
 
 # Store Logs in a Bucket     
-#logsBucket: 'gs://logs-cb-cloudbuild'
-#options:
-#    logging: GCS_ONLY
-
+logsBucket: 'gs://ltf-dev-log-bucket'
 options:
-  logging: CLOUD_LOGGING_ONLY
+    logging: GCS_ONLY
+
