@@ -38,7 +38,7 @@ steps:
 
 # Apply the Changes
 - id: 'Terraform apply'
-  name: 'hashicorp/terraform'
+  name: 'hashicorp/terraform:1.2.9'
   entrypoint: 'sh'
   args:
       - '-c'
