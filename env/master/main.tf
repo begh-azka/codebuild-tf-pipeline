@@ -52,3 +52,21 @@ module "vpc" {
   private_access1 = "true"
 
 }
+
+module "bucket" {
+  source = "./modules/bucket/"
+
+  # -------------- tf-logs-master -------------- 
+  bucketname1    = "rtf-logs-master"
+  location1      = "NAM4"
+  storage_class1 = "STANDARD"
+
+  # ------------------- LABELS ---------------------
+  name1      = "tf-logs-master"
+  project1   = var.project
+  role1      = "tf-logs-master"
+  owner1     = "devops"
+  env1       = "aiweb-prod"
+  terraform1 = "yes"
+
+}
