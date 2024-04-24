@@ -48,6 +48,6 @@ module "vpc" {
 
   # --------------- dev-vpc-subnet ---------------
   subnet_name1    = "dev-public-subnet"
-  subnet_range1   = "10.163.136.0/27"
+  subnet_range1   = "10.0.2.0/27"
   private_access1 = "true"
 }
