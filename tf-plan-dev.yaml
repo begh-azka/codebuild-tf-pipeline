@@ -8,7 +8,7 @@ steps:
   - '-c'
   - |
     dir=$(ls env)
-    echo "Files in the git directory: \n $dir" 
+    echo -e "Files in the git directory: \n $dir" 
     echo "We are in Branch: $BRANCH_NAME"
     if [ $dir == $BRANCH_NAME ]; then
         echo "Directory inside env folder is ${dir} and it matches branch name: ${BRANCH_NAME}. We can proceed with next stage."
