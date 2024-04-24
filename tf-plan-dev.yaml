@@ -36,15 +36,6 @@ steps:
     cd env/${BRANCH_NAME}/ && pwd
     terraform plan -out=tfplan
 
-# Apply the Changes
-- id: 'Terraform apply'
-  name: 'hashicorp/terraform:1.2.9'
-  entrypoint: 'sh'
-  args:
-      - '-c'
-      - |
-        cd env/${BRANCH_NAME}/ && pwd
-        terraform apply -auto-approve tfplan
         
 # Store Logs in a Bucket     
 logsBucket: 'gs://tf-dev-log-bucket/dev-logs'
