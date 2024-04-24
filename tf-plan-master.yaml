@@ -1,6 +1,6 @@
 steps:
 # Print the name of the git branch
-- id: 'Verify Git branch'
+- id: 'Verify Git branch and env directory match'
   name: alpine/git
   entrypoint: 'sh'
   args:
