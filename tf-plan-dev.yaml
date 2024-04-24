@@ -7,15 +7,15 @@ steps:
   args:
   - '-c'
   - |
-      echo "List all the files in the git directory to verify branch"
-      dir=$(ls env) && echo $dir
-      echo "We are in Branch: $BRANCH_NAME"
-      if [ $dir == $BRANCH_NAME ]; then
-        echo "Directory inside env is ${dir} and it matches ${BRANCH_NAME}"
-      else
+    echo "List all the files in the git directory to verify branch"
+    dir=$(ls env)
+    echo "We are in Branch: $BRANCH_NAME"
+    if [ $dir == $BRANCH_NAME ]; then
+        echo "Directory inside env folder is ${dir} and it matches branch name: ${BRANCH_NAME}"
+    else
         echo "Directory: ${dir} does not match git branch: ${BRANCH_NAME}. Exiting!"
         exit 1
-      fi
+    fi
 
 # Initilaize Terraform
 - id: 'Terraform init'
@@ -24,14 +24,8 @@ steps:
   args:
   - '-c'
   - |
-      dir=$(ls env/) && echo $dir
-      if [ -d "env/${BRANCH_NAME}/" ]; then
-        cd env/${BRANCH_NAME}
-        terraform init
-      else
-       echo "The branch is ${BRANCH_NAME} but the folder inside is ${dir}. Exiting!"
-       exit 1
-      fi
+    cd env/${BRANCH_NAME}
+    terraform init
       
 # Generate a Plan 
 - id: 'Terraform plan'
@@ -40,8 +34,8 @@ steps:
   args:
   - '-c'
   - |
-      cd env/${BRANCH_NAME}/
-      terraform plan
+    cd env/${BRANCH_NAME}/
+    terraform plan
 
 # Store Logs in a Bucket     
 logsBucket: 'gs://tf-dev-log-bucket'
