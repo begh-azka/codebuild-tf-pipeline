@@ -37,6 +37,6 @@ steps:
     terraform plan 
 
 # Store Logs in a Bucket     
-logsBucket: 'gs://logs-cb-cloudbuild'
+logsBucket: 'gs://logs-cb-cloudbuild/master-logs'
 options:
     logging: GCS_ONLY
