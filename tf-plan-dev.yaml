@@ -31,6 +31,9 @@ steps:
         echo
         terraform plan 
         
-logsBucket: 'gs://logs-cb-cloudbuild'
+#logsBucket: 'gs://logs-cb-cloudbuild'
+#options:
+#    logging: GCS_ONLY
+
 options:
-    logging: GCS_ONLY
+  logging: CLOUD_LOGGING_ONLY
