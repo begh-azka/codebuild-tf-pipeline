@@ -1,5 +1,4 @@
 steps:
-
 # Print the name of the git branch
 - id: 'Verify Git branch'
   name: alpine/git
@@ -46,7 +45,7 @@ steps:
         terraform apply -auto-approve
 
 # Store Logs in a Bucket     
-logsBucket: 'gs://ltf-dev-log-bucket'
+logsBucket: 'gs://tf-dev-log-bucket'
 options:
     logging: GCS_ONLY
 

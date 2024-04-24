@@ -1,39 +1,43 @@
-steps: 
-- name: 'gcr.io/cloud-builders/git'
-  args: ['checkout', 'dev']
-  
-- id: 'branch name'
-  name: gcr.io/cloud-builders/git
+
+steps:
+# Print the name of the git branch
+- id: 'Verify Git branch'
+  name: alpine/git
   entrypoint: 'sh'
   args:
   - '-c'
   - |
-      echo "***********************"
-      git branch --show-current
-      echo 
-      
-# Step 1: Initialize Terraform    
-- name: 'hashicorp/terraform'
-  entrypoint: 'sh'
-  args:
-      - '-c'
-      - |
-        git branch --show-current
-        echo
-        terraform init
-# Step 2: Terraform Plan
-- name: 'hashicorp/terraform'
-  entrypoint: 'sh'
-  args:
-      - '-c'
-      - |
-        git branch --show-current
-        echo
-        terraform plan 
-        
-#logsBucket: 'gs://logs-cb-cloudbuild'
-#options:
-#    logging: GCS_ONLY
+      echo "List all the files in the git directory to verify branch"
+      ls -l env/
+      echo "We are in Branch: $BRANCH_NAME"
 
+# Initilaize Terraform
+- id: 'Terraform init'
+  name: 'hashicorp/terraform:1.2.9'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      dir=$(ls env/) && echo $dir
+      if [ -d "env/${BRANCH_NAME}/" ]; then
+        cd env/${BRANCH_NAME}
+        terraform init
+      else
+       echo "The branch is ${BRANCH_NAME} but the folder inside is ${dir}. Exiting!"
+       exit 1
+      fi
+      
+# Generate a Plan 
+- id: 'Terraform plan'
+  name: 'hashicorp/terraform:1.2.9'
+  entrypoint: 'sh'
+  args:
+  - '-c'
+  - |
+      cd env/${BRANCH_NAME}/
+      terraform plan
+
+# Store Logs in a Bucket     
+logsBucket: 'gs://tf-dev-log-bucket'
 options:
-  logging: CLOUD_LOGGING_ONLY
+    logging: GCS_ONLY
