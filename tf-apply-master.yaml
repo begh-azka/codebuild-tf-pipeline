@@ -23,7 +23,7 @@ steps:
   args:
   - '-c'
   - |
-    cd env/${BRANCH_NAME} && ls
+    cd env/${BRANCH_NAME} && pwd
     terraform init
       
 # Generate a Plan 
@@ -33,8 +33,8 @@ steps:
   args:
   - '-c'
   - |
-    cd env/${BRANCH_NAME}/ && ls
-    terraform plan
+    cd env/${BRANCH_NAME}/ && pwd
+    terraform plan -out=tfplan
 
 # Apply the Changes
 - id: 'Terraform apply'
@@ -43,8 +43,8 @@ steps:
   args:
       - '-c'
       - |
-        cd env/${BRANCH_NAME}/ && ls
-        terraform apply -auto-approve
+        cd env/${BRANCH_NAME}/ && pwd
+        terraform apply -auto-approve tfplan
 
 # Store Logs in a Bucket     
 logsBucket: 'gs://logs-cb-cloudbuild'
