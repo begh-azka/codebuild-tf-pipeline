@@ -1,7 +1,6 @@
-
 steps:
 # Print the name of the git branch
-- id: 'Verify Git branch'
+- id: 'Verify Git branch and env directory match'
   name: alpine/git
   entrypoint: 'sh'
   args:
@@ -24,7 +23,7 @@ steps:
   args:
   - '-c'
   - |
-    cd env/${BRANCH_NAME}
+    cd env/${BRANCH_NAME} && pwd
     terraform init
       
 # Generate a Plan 
@@ -34,9 +33,9 @@ steps:
   args:
   - '-c'
   - |
-    cd env/${BRANCH_NAME}/
-    terraform plan
-
+    cd env/${BRANCH_NAME}/ && pwd
+    terraform plan 
+    
 # Store Logs in a Bucket     
 logsBucket: 'gs://tf-dev-log-bucket'
 options:
