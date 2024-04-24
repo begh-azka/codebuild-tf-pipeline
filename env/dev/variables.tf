@@ -1,6 +1,6 @@
 variable "project" {
   type    = string
-  default = "terraform-proj-421108"
+  default = "tf-dev-project-421304"
 }
 
 variable "region" {
