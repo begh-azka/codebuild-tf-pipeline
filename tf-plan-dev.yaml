@@ -34,7 +34,7 @@ steps:
   - '-c'
   - |
     cd env/${BRANCH_NAME}/ && pwd
-    terraform plan -out=tfplan
+    terraform plan
 
         
 # Store Logs in a Bucket     
