@@ -1,14 +1,20 @@
 steps:
 # Print the name of the git branch
-- id: 'Verify Git branch'
+- id: 'Verify Git branch and env directory match'
   name: alpine/git
   entrypoint: 'sh'
   args:
   - '-c'
   - |
-      echo "List all the files in the git directory to verify branch"
-      ls -l env/
-      echo "We are in Branch: $BRANCH_NAME"
+    dir=$(ls env)
+    echo -e "Files in the git directory: \n $dir" 
+    echo "We are in Branch: $BRANCH_NAME"
+    if [ $dir == $BRANCH_NAME ]; then
+        echo "Directory inside env folder is ${dir} and it matches branch name: ${BRANCH_NAME}. We can proceed with next stage."
+    else
+        echo "Directory: ${dir} does not match git branch: ${BRANCH_NAME}. Exiting!"
+        exit 1
+    fi
 
 # Initilaize Terraform
 - id: 'Terraform init'
@@ -17,32 +23,28 @@ steps:
   args:
   - '-c'
   - |
-      dir=$(ls env/) && echo $dir
-      if [ -d "env/${BRANCH_NAME}/" ]; then
-        cd env/${BRANCH_NAME}
-        terraform init
-      else
-       echo "The branch is ${BRANCH_NAME} but the folder inside is ${dir}. Exiting!"
-       exit 1
-      fi
+    cd env/${BRANCH_NAME} && pwd
+    terraform init
       
 # Generate a Plan 
-- id: 'Terraform plan'
+- id: 'Terraform plan -out=tfplan'
   name: 'hashicorp/terraform:1.2.9'
   entrypoint: 'sh'
   args:
   - '-c'
   - |
-      cd env/${BRANCH_NAME}/
-      terraform plan
+    cd env/${BRANCH_NAME}/ && pwd
+    terraform plan -out=tfplan
 
-- name: 'hashicorp/terraform'
+# Apply the Changes
+- id: 'Terraform apply -auto-approve tfplan'
+  name: 'hashicorp/terraform:1.2.9'
   entrypoint: 'sh'
   args:
       - '-c'
       - |
-        cd env/${BRANCH_NAME}/
-        terraform apply -auto-approve
+        cd env/${BRANCH_NAME}/ && pwd
+        terraform apply -auto-approve tfplan
 
 # Store Logs in a Bucket     
 logsBucket: 'gs://tf-dev-log-bucket'
