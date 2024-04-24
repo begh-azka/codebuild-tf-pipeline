@@ -38,6 +38,6 @@ steps:
     terraform plan
 
 # Store Logs in a Bucket     
-logsBucket: 'gs://tf-dev-log-bucket'
+logsBucket: 'gs://tf-dev-log-bucket/dev-logs'
 options:
     logging: GCS_ONLY
