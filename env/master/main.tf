@@ -52,6 +52,3 @@ module "vpc" {
   private_access1 = "true"
 
 }
-
-
-}
